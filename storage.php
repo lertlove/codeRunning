@@ -1,10 +1,10 @@
 <?php
-define('APPLICATION_NAME', 'FinSec');
+define('APPLICATION_NAME', 'MWITS Science Runners6-2-60');
 define('CLIENT_SECRET_PATH', 'client_secret.json');
 define('SCOPES', implode(' ', array(
 	Google_Service_Sheets::SPREADSHEETS
 )));
-define('SPREADSHEET_ID', '17ksPCxUo5W1RE4iE-Jf46AIOYK7EimPQh3Jed64BhmU');
+define('SPREADSHEET_ID', '1Xq9E6VVMRj3e9IaFUM6KHTYm5GhCiqCEMm5CToyor4k');
 
 function getService() {
 	$client = new Google_Client();
@@ -16,23 +16,50 @@ function getService() {
 	return $service;
 }
 
-function addRecord($message, $amount, $actor) {
+// function findRecord($message, $amount, $actor) {
+function findRecord($message) {
 	$service = getService();
-	$time = date('Y-m-d H:i:s');
+	$spreadsheetId = SPREADSHEET_ID;
+	$range = 'student 1-300-1!A:Z';
+	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
+	$rows = $response->getValues();
+	$message = trim($message);
+	
+	$results = [];
 
-	$values = [
-		[$time, $actor, $message, $amount]
-	];
+	foreach ($rows as $row) {
+		
+		if (strpos($row[1],$message) !== false) {
+		    $results[] = "code:".$row[0]." , ".$row[1]." , ".$row[3]." , tel:".$row[5];
+		}
 
-	$body = new Google_Service_Sheets_ValueRange(array(
-		'values' => $values
-	));
+		if(count($results) > 5){
+			break;
+		}
+	}
 
-	$params = array(
-		'valueInputOption' => 'USER_ENTERED'
-	);
+	$results = implode("/----------------------/", $results);
 
-	$service->spreadsheets_values->append(SPREADSHEET_ID, 'Main!A1', $body, $params);
+	return $results;
+
+
+	// $rows = Sheets::sheet('สำหรับแปล')->get();
+	
+	// $time = date('Y-m-d H:i:s');
+
+	// $values = [
+	// 	[$time, $actor, $message, $amount]
+	// ];
+
+	// $body = new Google_Service_Sheets_ValueRange(array(
+	// 	'values' => $values
+	// ));
+
+	// $params = array(
+	// 	'valueInputOption' => 'USER_ENTERED'
+	// );
+
+	// $service->spreadsheets_values->append(SPREADSHEET_ID, 'Main!A1', $body, $params);
 }
 
 function addImage($image, $actor) {
