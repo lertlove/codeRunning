@@ -6,8 +6,8 @@ use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
-define('CHANNEL_ACCESS_TOKEN', '15o60jaZ2VS5zxNCn/YHfie4/JZBYA9GbpnbmFCiaQkt91rHH1/iD6s6Y7g4h2KbzAcuDCj8cNd3JeNuAVigoEwZ/vhfwQ4udINHfI7p1iC+n1e+/lJEWA59NYGE8YGPeB4TiEq12Oz3SXtbpanm8QdB04t89/1O/w1cDnyilFU=');
-define('CHANNEL_SECRET', '60f172d664490d49d7ff28b802949468');
+define('CHANNEL_ACCESS_TOKEN', 'fJwCjyz8T+/A4AEvp61DKeb6IWnqvth4fRDhtrbwHUadLHlqYka9e2Q36ScctXp/T/ZNTgNIPB/HLHu0YhCHxP93rCUr2aBKKT4NgFRdiw8eKuGUCAbtBk79mYRGD9C7FK62OVKzfIU7pkxlsrpq2gdB04t89/1O/w1cDnyilFU=');
+define('CHANNEL_SECRET', '63dd756d756ce5b696d966a80056f423');
 
 $httpClient = new CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
 $bot = new LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
