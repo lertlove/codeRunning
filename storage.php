@@ -24,18 +24,27 @@ function findRecord($message) {
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$rows = $response->getValues();
 	$message = trim($message);
-	
+
+	$type = "text";
+	if(preg_match("/^[\+0-9\-\(\)\s]*$/", $message)){
+		$type = "tel";
+		$message = preg_replace('/\D/', '', $message);
+	}
+
 	$results = [];
 
 	foreach ($rows as $row) {
-		
-		if (strpos($row[1],$message) !== false) {
-		    $results[] = "code:".$row[0]." , ".$row[1]." , ".$row[3]." , tel:".$row[5];
+
+		if ((isset($row[5]) && preg_replace('/\D/', '', $row[5]) == $message)) {
+		    $results[] = "code:".$row[0]." , ".$row[1]." , ".$row[3]." , sizeเสื้อ:".$row[4]." , tel:".$row[5];
+		} else if ((isset($row[1]) && strpos($row[1],$message) !== false)) {
+		    $results[] = "code:".$row[0]." , ".$row[1]." , ".$row[3]." , sizeเสื้อ:".$row[4]." , tel:".$row[5];
 		}
 
 		if(count($results) > 5){
 			break;
 		}
+		
 	}
 
 	if(count($results)<1){

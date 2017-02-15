@@ -15,7 +15,7 @@ $bot = new LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
-
+// $response_message = parseMessage("","");
 
 if (!empty($events['events'])) {
 	foreach ($events['events'] as $event) {
