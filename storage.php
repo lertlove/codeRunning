@@ -50,7 +50,7 @@ function findRecord($message) {
 	if(count($results)<1){
 		$results = "ไม่พบข้อมูล โปรดเช็คตัวสะกดแล้วลองใหม่อีกครั้งนะคะ";
 	} else{
-		$results = implode("/----------------------/", $results);	
+		$results = implode("\n/----------------------/\n", $results);	
 	}
 	
 
