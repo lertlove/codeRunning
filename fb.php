@@ -1,5 +1,8 @@
 <?php
  
+require_once __DIR__ . '/vendor/autoload.php';
+require_once 'parser.php';
+
 	$token = "EAAOucdHqidYBAJJDkonT9rZB0n2UM8SjL5NVgjSE5XAZB5Kl3vZCHAXBgpBO3mreqXhwJEfErng55uXZBZCxlVda2k1L3s1LLM5QAtMvBReENR4ZBMkV5VUb446tij2szJIM4h4PSf8MLIvADny3AsTU9R3VtBEX00lnD1Lp2ZCZAQZDZD";
 	$verify_token = "mwit_token";
 	$hub_verify_token = null;
