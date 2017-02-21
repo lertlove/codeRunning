@@ -12,6 +12,8 @@ $data_to_send = array(
 'message' => array('text'=>"Hi Mwit2. I am Test Bot") //Message to reply
 );
  
+header("HTTP/1.1 200 OK");
+
 $options_header = array ( //Necessary Headers
 'http' => array(
 'method' => 'POST',
@@ -21,4 +23,6 @@ $options_header = array ( //Necessary Headers
 );
 $context = stream_context_create($options_header);
 file_get_contents("https://graph.facebook.com/v2.6/me/messages?access_token=$token",false,$context);
+
+
 ?>
