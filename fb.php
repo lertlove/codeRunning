@@ -18,25 +18,29 @@ $fb_message = file_get_contents("message.txt");
 $fb_message = json_decode($fb_message);
 $rec_id = $fb_message->entry[0]->messaging[0]->sender->id; //Sender's ID
 $rec_msg= $fb_message->entry[0]->messaging[0]->message->text; //Sender's Message
-$data_to_send = array(
-'recipient'=> array('id'=>"$rec_id"), //ID to reply
-'message' => array('text'=>"Hi Mwit3. Are you ".$rec_msg) //Message to reply
-);
 
-$headers = [
-	'Content-Type: application/json',
-];
+if(!empty($rec_msg)){
 
-$process = curl_init("https://graph.facebook.com/v2.6/me/messages?access_token=$token");
-curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($process, CURLOPT_HEADER, false);
-curl_setopt($process, CURLOPT_TIMEOUT, 30);
-curl_setopt($process, CURLOPT_POST, 1);
-curl_setopt($process, CURLOPT_POSTFIELDS, http_build_query($data_to_send));
-curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-$return = curl_exec($process);
-curl_close($process);
-return json_decode($return, true);
+	$data_to_send = array(
+	'recipient'=> array('id'=>"$rec_id"), //ID to reply
+	'message' => array('text'=>"Hi Mwit3. Are you ".$rec_msg) //Message to reply
+	);
+
+	$headers = [
+		'Content-Type: application/json',
+	];
+
+	$process = curl_init("https://graph.facebook.com/v2.6/me/messages?access_token=$token");
+	curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($process, CURLOPT_HEADER, false);
+	curl_setopt($process, CURLOPT_TIMEOUT, 30);
+	curl_setopt($process, CURLOPT_POST, 1);
+	curl_setopt($process, CURLOPT_POSTFIELDS, http_build_query($data_to_send));
+	curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+	$return = curl_exec($process);
+	curl_close($process);
+	return json_decode($return, true);
+}
  
 // header("HTTP/1.1 200 OK");
 
