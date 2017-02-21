@@ -20,6 +20,8 @@ $process = curl_init("https://graph.facebook.com/v2.6/me/messages?access_token=$
 curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($process, CURLOPT_HEADER, false);
 curl_setopt($process, CURLOPT_TIMEOUT, 30);
+curl_setopt($process, CURLOPT_POST, 1);
+curl_setopt($process, CURLOPT_POSTFIELDS, http_build_query($data_to_send));
 curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
 $return = curl_exec($process);
 curl_close($process);
