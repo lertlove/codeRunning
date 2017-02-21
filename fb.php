@@ -9,14 +9,14 @@ $rec_id = $fb_message->entry[0]->messaging[0]->sender->id; //Sender's ID
 $rec_msg= $fb_message->entry[0]->messaging[0]->message->text; //Sender's Message
 $data_to_send = array(
 'recipient'=> array('id'=>"$rec_id"), //ID to reply
-'message' => array('text'=>"Hi Mwit. I am Test Bot") //Message to reply
+'message' => array('text'=>"Hi Mwit2. I am Test Bot") //Message to reply
 );
  
 $options_header = array ( //Necessary Headers
 'http' => array(
 'method' => 'POST',
 'content' => json_encode($data_to_send),
-'header' => "Content-Type: application/json\nHTTP/1.1 200 OK\n"
+'header' => "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n"
 )
 );
 $context = stream_context_create($options_header);
