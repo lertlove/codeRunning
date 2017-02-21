@@ -1,7 +1,18 @@
 <?php
  
-$token = "EAAOucdHqidYBAJFtPBQRm83j72ijmmqKZAy052kHMOp8yf9ffdK6ydHs3Tw7SZCu45ZCRZCmcOGC5LWaZB8bFCQcQKS0d9WN7YZAqseOyM9KLOktEmOaY9snl2NHGEQi0Oiia45GHZC7QMy8M5B2ntPJZAA2wcOl7ZCA9dDAbeab90wZDZD";
- 
+$token = "EAAOucdHqidYBAJJDkonT9rZB0n2UM8SjL5NVgjSE5XAZB5Kl3vZCHAXBgpBO3mreqXhwJEfErng55uXZBZCxlVda2k1L3s1LLM5QAtMvBReENR4ZBMkV5VUb446tij2szJIM4h4PSf8MLIvADny3AsTU9R3VtBEX00lnD1Lp2ZCZAQZDZD";
+$verify_token = "mwit_token";
+$hub_verify_token = null;
+if(isset($_REQUEST['hub_challenge'])) {
+    $challenge = $_REQUEST['hub_challenge'];
+    $hub_verify_token = $_REQUEST['hub_verify_token'];
+}
+if ($hub_verify_token === $verify_token) {
+    echo $challenge;
+    exit;
+}
+
+
 file_put_contents("message.txt",file_get_contents("php://input"));
 $fb_message = file_get_contents("message.txt");
 $fb_message = json_decode($fb_message);
@@ -9,7 +20,7 @@ $rec_id = $fb_message->entry[0]->messaging[0]->sender->id; //Sender's ID
 $rec_msg= $fb_message->entry[0]->messaging[0]->message->text; //Sender's Message
 $data_to_send = array(
 'recipient'=> array('id'=>"$rec_id"), //ID to reply
-'message' => array('text'=>"Hi Mwit3. I am Test Bot") //Message to reply
+'message' => array('text'=>"Hi Mwit3. Are you ".$rec_msg) //Message to reply
 );
 
 $headers = [
