@@ -16,7 +16,7 @@ $options_header = array ( //Necessary Headers
 'http' => array(
 'method' => 'POST',
 'content' => json_encode($data_to_send),
-'header' => "Content-Type: application/json\n"
+'header' => "Content-Type: application/json\nHTTP/1.1 200 OK\n"
 )
 );
 $context = stream_context_create($options_header);
