@@ -1,58 +1,24 @@
 <?php
  
-print_r($_GET['hub_challenge']);
-// require_once __DIR__ . '/vendor/autoload.php';
-// require_once 'parser.php';
-
-// use LINE\LINEBot;
-// use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-// use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-
-
-// define('CHANNEL_ACCESS_TOKEN', 'fJwCjyz8T+/A4AEvp61DKeb6IWnqvth4fRDhtrbwHUadLHlqYka9e2Q36ScctXp/T/ZNTgNIPB/HLHu0YhCHxP93rCUr2aBKKT4NgFRdiw8eKuGUCAbtBk79mYRGD9C7FK62OVKzfIU7pkxlsrpq2gdB04t89/1O/w1cDnyilFU=');
-// define('CHANNEL_SECRET', '63dd756d756ce5b696d966a80056f423');
-
-// $httpClient = new CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
-// $bot = new LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
-
-// $content = file_get_contents('php://input');
-// $events = json_decode($content, true);
-// // $response_message = parseMessage("","");
-
-// if (!empty($events['events'])) {
-// 	foreach ($events['events'] as $event) {
-// 		switch ($event['type']) {
-// 			case 'message':
-// 				$message = $event['message'];
-// 				switch ($message['type']) {
-// 					case 'text':
-// 						$response_message = parseMessage($message['text'], $event['source']['userId']);
-// 						break;
-// 					// case 'image':
-// 					// 	$contentId = $message['id'];
-// 					// 	$image = $bot->getMessageContent($contentId)->getRawBody();
-// 					// 	$response_message = parseImage($image, $event['source']['userId']);
-// 					// 	break;
-// 					default:
-// 						error_log("Unsupported message type: " . $message['type']);
-// 						break;
-// 				}
-
-// 				if (!empty($response_message)) {
-// 					$textMessageBuilder = new TextMessageBuilder($response_message);
-// 					$response = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
-// 					if ($response->isSucceeded()) {
-// 						error_log('Success');
-
-// 						return;
-// 					}
-
-// 					error_log('Fail ' . $response->getRawBody());
-// 					break;
-// 				}
-// 			default:
-// 				error_log("Unsupported event type: " . $event['type']);
-// 				break;
-// 		}
-// 	}
-// }
+$token = "EAAOucdHqidYBAJFtPBQRm83j72ijmmqKZAy052kHMOp8yf9ffdK6ydHs3Tw7SZCu45ZCRZCmcOGC5LWaZB8bFCQcQKS0d9WN7YZAqseOyM9KLOktEmOaY9snl2NHGEQi0Oiia45GHZC7QMy8M5B2ntPJZAA2wcOl7ZCA9dDAbeab90wZDZD";
+ 
+file_put_contents("message.txt",file_get_contents("php://input"));
+$fb_message = file_get_contents("message.txt");
+$fb_message = json_decode($fb_message);
+$rec_id = $fb_message->entry[0]->messaging[0]->sender->id; //Sender's ID
+$rec_msg= $fb_message->entry[0]->messaging[0]->message->text; //Sender's Message
+$data_to_send = array(
+'recipient'=> array('id'=>"$rec_id"), //ID to reply
+'message' => array('text'=>"Hi Mwit. I am Test Bot") //Message to reply
+);
+ 
+$options_header = array ( //Necessary Headers
+'http' => array(
+'method' => 'POST',
+'content' => json_encode($data_to_send),
+'header' => "Content-Type: application/json\n"
+)
+);
+$context = stream_context_create($options_header);
+file_get_contents("https://graph.facebook.com/v2.6/me/messages?access_token=$token",false,$context);
+?>
