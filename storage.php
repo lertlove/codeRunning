@@ -35,9 +35,9 @@ function findRecord($message) {
 
 	foreach ($rows as $row) {
 
-		if ((isset($row[5]) && preg_replace('/\D/', '', $row[5]) == $message)) {
+		if ((isset($row[6]) && preg_replace('/\D/', '', $row[6]) == $message)) {
 		    $results[] = "source:".$row[0]."\n"."code:".$row[1]."\n".$row[2]."\n".$row[4]."\nsizeเสื้อ:".$row[5];
-		} else if ((isset($row[1]) && strpos($row[1],$message) !== false)) {
+		} else if ((isset($row[2]) && strpos($row[2],$message) !== false)) {
 		    $results[] = "source:".$row[0]."\n"."code:".$row[1]."\n".$row[2]."\n".$row[4]."\nsizeเสื้อ:".$row[5];
 		}
 
