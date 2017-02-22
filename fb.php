@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once 'parser.php';
 
 	// $token = "EAAOucdHqidYBAJJDkonT9rZB0n2UM8SjL5NVgjSE5XAZB5Kl3vZCHAXBgpBO3mreqXhwJEfErng55uXZBZCxlVda2k1L3s1LLM5QAtMvBReENR4ZBMkV5VUb446tij2szJIM4h4PSf8MLIvADny3AsTU9R3VtBEX00lnD1Lp2ZCZAQZDZD";
-$token = "EAAOucdHqidYBAGKX1g2IpDjg1GiXZBuJyjzOAYCh97CHyuiLKD0kxWG9nVarIOiVeRZArspwbkwQ2mzjGLJCethyPvTuYIVmc2UXo7AyElrk8ZC9z0aYJugE8r1CpzlnBRJIMHMEemAeUjkD6QLjx0kjuOFNyolZAPjcxcrBDwZDZD";
+	$token = "EAAOucdHqidYBAGKX1g2IpDjg1GiXZBuJyjzOAYCh97CHyuiLKD0kxWG9nVarIOiVeRZArspwbkwQ2mzjGLJCethyPvTuYIVmc2UXo7AyElrk8ZC9z0aYJugE8r1CpzlnBRJIMHMEemAeUjkD6QLjx0kjuOFNyolZAPjcxcrBDwZDZD";
 	$verify_token = "mwit_token";
 	$hub_verify_token = null;
 	if(isset($_REQUEST['hub_challenge'])) {
@@ -15,15 +15,14 @@ $token = "EAAOucdHqidYBAGKX1g2IpDjg1GiXZBuJyjzOAYCh97CHyuiLKD0kxWG9nVarIOiVeRZAr
 	    echo $challenge;
 	    exit;
 	}
-
-
+	
 	file_put_contents("message.txt",file_get_contents("php://input"));
 	$fb_message = file_get_contents("message.txt");
 	$fb_message = json_decode($fb_message);
 	$rec_id = $fb_message->entry[0]->messaging[0]->sender->id; //Sender's ID
 	$rec_msg= $fb_message->entry[0]->messaging[0]->message->text; //Sender's Message
 
-	if(!empty($rec_msg)){
+	if(!empty($rec_msg) && shouldReplyMessage($rec_msg)){
 
 		$response_message = parseMessage($rec_msg, "");
 		if (!empty($response_message)) {

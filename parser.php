@@ -17,6 +17,11 @@ function parseMessage($message, $actor) {
 	return $responseMessage;
 }
 
+function shouldReplyMessage($message) {
+
+	return $preg_match("/^@*$/", $message);
+}
+
 function parseImage($image, $actor) {
 	$filename = addImage($image, $actor);
 

@@ -23,6 +23,7 @@ function findRecord($message) {
 	$range = 'Total for Search Engine!A:Z';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$rows = $response->getValues();
+	$message = str_replace('@', '', $message);
 	$message = trim($message);
 
 	$type = "text";
