@@ -15,7 +15,7 @@ require_once 'parser.php';
 	    echo $challenge;
 	    exit;
 	}
-	
+
 	file_put_contents("message.txt",file_get_contents("php://input"));
 	$fb_message = file_get_contents("message.txt");
 	$fb_message = json_decode($fb_message);

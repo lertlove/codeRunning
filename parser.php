@@ -19,7 +19,7 @@ function parseMessage($message, $actor) {
 
 function shouldReplyMessage($message) {
 
-	return $preg_match("/^@*$/", $message);
+	return preg_match("/^@/", $message);
 }
 
 function parseImage($image, $actor) {
