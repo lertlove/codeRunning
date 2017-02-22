@@ -20,7 +20,7 @@ function getService() {
 function findRecord($message) {
 	$service = getService();
 	$spreadsheetId = SPREADSHEET_ID;
-	$range = 'student 1-300-1!A:Z';
+	$range = 'Total for Search Engine!A:Z';
 	$response = $service->spreadsheets_values->get($spreadsheetId, $range);
 	$rows = $response->getValues();
 	$message = trim($message);
@@ -36,9 +36,9 @@ function findRecord($message) {
 	foreach ($rows as $row) {
 
 		if ((isset($row[5]) && preg_replace('/\D/', '', $row[5]) == $message)) {
-		    $results[] = "code:".$row[0]."\n".$row[1]."\n".$row[3]."\nsizeเสื้อ:".$row[4];
+		    $results[] = "source:".$row[0]."\n"."code:".$row[1]."\n".$row[2]."\n".$row[4]."\nsizeเสื้อ:".$row[5];
 		} else if ((isset($row[1]) && strpos($row[1],$message) !== false)) {
-		    $results[] = "code:".$row[0]."\n".$row[1]."\n".$row[3]."\nsizeเสื้อ:".$row[4];
+		    $results[] = "source:".$row[0]."\n"."code:".$row[1]."\n".$row[2]."\n".$row[4]."\nsizeเสื้อ:".$row[5];
 		}
 
 		if(count($results) > 5){
