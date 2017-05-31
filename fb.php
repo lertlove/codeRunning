@@ -24,7 +24,8 @@ require_once 'parser.php';
 
 	if(!empty($rec_msg) && shouldReplyMessage($rec_msg)){
 
-		$response_message = parseMessage($rec_msg, "");
+		$response_message = $rec_msg;
+		// $response_message = parseMessage($rec_msg, "");
 		if (!empty($response_message)) {
 			$data_to_send = array(
 			'recipient'=> array('id'=>"$rec_id"), //ID to reply
